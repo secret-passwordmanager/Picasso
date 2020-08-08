@@ -4,7 +4,7 @@
 1. Install **NodeJS** (Needed for node package manager)
 2. Install **Expo Command Line Interface** (Important for previewing applications on physical devices)
 
-    Run `npm install expo-cli --global`
+    Run `sudo npm install expo-cli --global`
 
 ## Previewing Picasso on Your Physical Device
 1. Download **Expo Client** on your mobile device
