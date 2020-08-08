@@ -3,8 +3,10 @@
 ## Setting Up the Development Environment
 1. Install **NodeJS** (Needed for node package manager)
 2. Install **Expo Command Line Interface** (Important for previewing applications on physical devices)
+3.Run `sudo npm install expo-cli --global`
+4. Run `npm install` in the root directory
 
-    Run `sudo npm install expo-cli --global`
+   
 
 ## Previewing Picasso on Your Physical Device
 1. Download **Expo Client** on your mobile device
