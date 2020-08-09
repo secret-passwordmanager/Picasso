@@ -36,17 +36,20 @@ export default function App() {
   );
 }
 
+const main_color = '#2663ad';
+const background_color = '#1e1e1e';
+
 const styles = StyleSheet.create({
   container:{
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#1e1e1e'
+    backgroundColor: background_color
   },
   header:{
     fontWeight:'bold',
     fontSize: 50,
-    color:'#2663ad',
+    color: main_color,
     //color:'#828282',
     marginBottom:40
   },
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
   login_btn:{
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'#2663ad',
+    backgroundColor: main_color,
     borderRadius: 22,
     width: '80%',
     height: 50,
