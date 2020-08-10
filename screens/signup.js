@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import {NavigationContainer} from '@react-navigation/native'
 import {createStacknavigator} from '@react-navigation/stack'
 
-const login_screen = ({navigation}) => {
+export default function signup_screen({navigation}){
     return (
         <View>
             <Text>Signup Page</Text>
