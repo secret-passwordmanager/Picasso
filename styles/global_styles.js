@@ -25,6 +25,12 @@ export default {
             color: main_color,
             marginBottom:40
         },
+        header2:{
+            fontWeight:'bold',
+            fontSize: 30,
+            color: main_color,
+            marginBottom:40
+        },
         login_field:{
             justifyContent: 'center',
             backgroundColor: alt_color,
