@@ -29,7 +29,11 @@ export default function login_screen({navigation}){
                 <Text style={styles.login_text}>Forgot Password?</Text>
             </TouchableOpacity>*/}
 
-            <TouchableOpacity style={styles.login_btn}>
+            <TouchableOpacity style={styles.login_btn}
+                onPress={() => {
+                    {/*validate user login info here*/}
+                    navigation.navigate('home')
+                }}>
                 <Text style={styles.login_text}>LOGIN</Text>
             </TouchableOpacity>
             
@@ -42,4 +46,5 @@ export default function login_screen({navigation}){
         </View>
     );
 };
+
 

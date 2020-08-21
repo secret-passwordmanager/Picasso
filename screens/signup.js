@@ -57,9 +57,10 @@ export default function signup_screen({navigation}){
             </View>
 
             <TouchableOpacity style={styles.login_btn}
-                onPress={() =>
+                onPress={() => {
                     {/*register_user(first_name, last_name, email, username, password)*/}
-                }>
+                    navigation.navigate('home')
+                }}>
                 <Text style={styles.login_text}>Sign Up</Text>
             </TouchableOpacity>
         </View>
