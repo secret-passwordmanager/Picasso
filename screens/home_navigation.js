@@ -3,6 +3,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import global_styles from '../styles/global_styles'
 import requests from "./requests";
+import credentials from "./credentials"
+import settings from "./settings"
 
 const styles = global_styles.css_styles;
 const Tab = createMaterialBottomTabNavigator();
@@ -14,7 +16,7 @@ export default function tabs() {
         backBehavior = 'history'
         shifting = 'true'
         labeled = 'false'
-        activeColor = {global_styles.main_color}
+        activeColor = 'white'
         inactiveColor = {global_styles.background_color}
         barStyle={{ backgroundColor: global_styles.main_color}}
       >
@@ -22,10 +24,32 @@ export default function tabs() {
           name="Password Requests"
           component={requests}
           options={{
-            tabBarLabel: 'Home',
+            tabBarLabel: '',
             tabBarColor: styles.main_color,
-            tabBarIcon: () => (
-              <MaterialCommunityIcons name="home" color={'white'} size={26} />
+            tabBarIcon: ({color}) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Credentials"
+          component={credentials}
+          options={{
+            tabBarLabel: '',
+            tabBarColor: styles.main_color,
+            tabBarIcon: ({color}) => (
+              <MaterialCommunityIcons name="lock" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={settings}
+          options={{
+            tabBarLabel: '',
+            tabBarColor: styles.main_color,
+            tabBarIcon: ({color}) => (
+              <MaterialCommunityIcons name="settings" color={color} size={26} />
             ),
           }}
         />

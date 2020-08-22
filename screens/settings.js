@@ -6,10 +6,10 @@ import global_styles from '../styles/global_styles'
 
 const styles = global_styles.css_styles;
 
-export default function requests_screen({navigation}){
+export default function settings_screen({navigation}){
     return(
         <View style={styles.container}>
-            <Text style={styles.login_text}>Home Screen</Text>
+            <Text style={styles.login_text}>Settings Screen</Text>
         </View>
     );
 };
