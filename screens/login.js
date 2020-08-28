@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,6 +7,8 @@ import global_styles from '../styles/global_styles'
 
 const styles = global_styles.css_styles;
 export default function login_screen({navigation}){
+    const [username, set_username] = useState('');
+    const [password, set_password] = useState('');
     return (
         <View style={styles.container}>
             {/*<StatusBar style="auto" />*/}
@@ -15,14 +17,16 @@ export default function login_screen({navigation}){
                 <TextInput 
                 style={styles.input_text} 
                 placeholder='Username' 
-                placeholderTextColor={global_styles.background_color}/>
+                placeholderTextColor={global_styles.background_color}
+                onChangeText={(val) => set_username(val)}/>
             </View>
             <View style={styles.login_field}>
                 <TextInput 
                 style={styles.input_text}
                 secureTextEntry={true} 
                 placeholder='Password' 
-                placeholderTextColor={global_styles.background_color}/>
+                placeholderTextColor={global_styles.background_color}
+                onChangeText={(val) => set_password(val)}/>
             </View>
 
             {/*<TouchableOpacity >
@@ -31,8 +35,8 @@ export default function login_screen({navigation}){
 
             <TouchableOpacity style={styles.login_btn}
                 onPress={() => {
-                    {/*validate user login info here*/}
-                    navigation.navigate('home')
+                    login(username, password, navigation);
+                    //navigation.navigate('home')
                 }}>
                 <Text style={styles.login_text}>LOGIN</Text>
             </TouchableOpacity>
@@ -46,5 +50,34 @@ export default function login_screen({navigation}){
         </View>
     );
 };
+
+function login(username, password, navigation){
+    var request_params = {
+    method: 'POST',
+        headers: {
+            'Accept': "application/json, text/plain, */*",
+            'Content-Type': "application/json;charset=utf-8"
+        },
+        body: JSON.stringify({"username": username,"password":password}),
+        redirect: 'follow'
+    };
+
+    fetch("http://73.66.169.37:8080/auth/login", request_params)
+    .then((response) =>{ 
+        console.log('response: ' + JSON.stringify(response));
+        console.log('status: ' + response.status);
+        switch(response.status){
+            case 200: //user login succeded
+                navigation.navigate('home');
+                break;
+            default: //username and/or password is incorrect
+                break;
+        }
+    })
+    .then((result) =>{
+        console.log(result); 
+    })
+    .catch(error => console.log('error', error));
+}
 
 
