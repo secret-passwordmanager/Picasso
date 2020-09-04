@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import global_styles from '../styles/global_styles'
+import AsyncStorage from '@react-native-community/async-storage';
 
 const styles = global_styles.css_styles;
 export default function login_screen({navigation}){
@@ -51,6 +52,22 @@ export default function login_screen({navigation}){
     );
 };
 
+const get_token = async() =>{
+    try {
+        return await AsyncStorage.getItem('refresh_token');
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const store_token = async(key, value) =>{
+    try {
+        return value = await AsyncStorage.setItem(key, value)
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 function login(username, password, navigation){
     var request_params = {
     method: 'POST',
@@ -63,16 +80,23 @@ function login(username, password, navigation){
     };
 
     fetch("http://73.66.169.37:8080/auth/login", request_params)
-    .then(response => response.json())
-    .then(response =>{
-        //console.log(response);
-        if('error' in response)
-            console.log(response['error']);
-        else
-            console.log('refresh token:', response['refreshToken']);
-             
-    })
-    .catch(error => console.log('error', error));
+        .then(response => response.json())
+        .then(response =>{
+            if('error' in response){
+                console.log(response['error']);
+            }else{
+                store_token('refresh_token', response.refreshToken);
+                navigation.navigate('home');
+                /*
+                get_token().then( token => {
+                    console.log('async stored value:', token);
+                });
+                */
+            }
+                
+                
+        })
+        .catch(error => console.log('error', error));
 }
 
 

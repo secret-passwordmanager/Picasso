@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import {NavigationContainer} from '@react-navigation/native'
 import {createStacknavigator} from '@react-navigation/stack'
 import global_styles from '../styles/global_styles'
+import AsyncStorage from '@react-native-community/async-storage';
 
 const styles = global_styles.css_styles;
 export default function signup_screen({navigation}){
@@ -65,6 +66,40 @@ export default function signup_screen({navigation}){
         </View>
     );
 };
+
+const store_token = async(key, value) =>{
+    try {
+        return value = await AsyncStorage.setItem(key, value)
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function login(username, password, navigation){
+    var request_params = {
+    method: 'POST',
+        headers: {
+            'Content-Type': "application/json;charset=utf-8"
+        },
+        body: JSON.stringify({"username": username,"password":password}),
+        redirect: 'follow'
+    };
+
+    fetch("http://73.66.169.37:8080/auth/login", request_params)
+        .then(response => response.json())
+        .then(response =>{
+            if('error' in response){
+                console.log(response['error']);
+            }else{
+                store_token('refresh_token', response.refreshToken);
+                navigation.navigate('home');
+            }
+                
+                
+        })
+        .catch(error => console.log('error', error));
+}
+
 //Send POST request to create new user
 function register_user(first_name, last_name, master_cred, username, password, navigation){
     var request_params = {
@@ -82,17 +117,12 @@ function register_user(first_name, last_name, master_cred, username, password, n
         }),
         redirect: 'follow'
     };
-
     fetch('http://73.66.169.37:8080/user/new', request_params)
         .then((response) =>{
-            console.log('Response: ' + response.status);
-            switch(response.status){
-                case 200: //user registration succeeded
-                    //TODO: log user in before navigating to home page
-                    navigation.navigate('home');
-                    break;
-                case 400: //username already taken
-                    break;
+            if(response.status != 200){
+                console.log('errors detected');
+            }else{
+                login(username, password, navigation);
             }
         })
         .catch( error =>{
