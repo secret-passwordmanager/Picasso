@@ -55,7 +55,7 @@ function login(username, password, navigation){
     var request_params = {
     method: 'POST',
         headers: {
-            'Accept': "application/json, text/plain, */*",
+            //'Accept': "application/json, text/plain, */*",
             'Content-Type': "application/json;charset=utf-8"
         },
         body: JSON.stringify({"username": username,"password":password}),
@@ -63,19 +63,14 @@ function login(username, password, navigation){
     };
 
     fetch("http://73.66.169.37:8080/auth/login", request_params)
-    .then((response) =>{ 
-        console.log('response: ' + JSON.stringify(response));
-        console.log('status: ' + response.status);
-        switch(response.status){
-            case 200: //user login succeded
-                navigation.navigate('home');
-                break;
-            default: //username and/or password is incorrect
-                break;
-        }
-    })
-    .then((result) =>{
-        console.log(result); 
+    .then(response => response.json())
+    .then(response =>{
+        //console.log(response);
+        if('error' in response)
+            console.log(response['error']);
+        else
+            console.log('refresh token:', response['refreshToken']);
+             
     })
     .catch(error => console.log('error', error));
 }
