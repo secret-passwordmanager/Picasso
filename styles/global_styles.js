@@ -19,6 +19,11 @@ export default {
             justifyContent: 'center',
             backgroundColor: background_color
         },
+        container_alt:{
+            flex: 1,
+            alignItems: 'center',
+            backgroundColor: background_color
+        },
         header:{
             fontWeight:'bold',
             fontSize: 50,
