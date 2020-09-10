@@ -10,6 +10,7 @@ const styles = global_styles.css_styles;
 export default function login_screen({navigation}){
     const [username, set_username] = useState('');
     const [password, set_password] = useState('');
+    const [error_message, set_err_msg] = useState('');
     return (
         <View style={styles.container}>
             {/*<StatusBar style="auto" />*/}
@@ -33,10 +34,10 @@ export default function login_screen({navigation}){
             {/*<TouchableOpacity >
                 <Text style={styles.login_text}>Forgot Password?</Text>
             </TouchableOpacity>*/}
-
+            <Text style={{color:'red'}}>{error_message}</Text>
             <TouchableOpacity style={styles.login_btn}
                 onPress={() => {
-                    login(username, password, navigation);
+                    login(username, password, navigation, set_err_msg);
                     //navigation.navigate('home')
                 }}>
                 <Text style={styles.login_text}>LOGIN</Text>
@@ -68,7 +69,7 @@ const store_token = async(key, value) =>{
     }
 }
 
-function login(username, password, navigation){
+function login(username, password, navigation, set_err_msg){
     var request_params = {
     method: 'POST',
         headers: {
@@ -80,23 +81,27 @@ function login(username, password, navigation){
     };
 
     fetch("http://73.66.169.37:8080/auth/login", request_params)
-        .then(response => response.json())
         .then(response =>{
-            if('error' in response){
-                console.log(response['error']);
+            if(response.ok){
+                set_err_msg('');
+                return response.json();
             }else{
-                store_token('refresh_token', response.refreshToken);
-                navigation.navigate('home');
-                /*
-                get_token().then( token => {
-                    console.log('async stored value:', token);
-                });
-                */
+                set_err_msg('username or password is incorrect');
+                throw 'username or password is incorrect';
             }
-                
-                
         })
-        .catch(error => console.log('error', error));
+        //.then(response => response.json())
+        .then(response =>{
+            console.log(response);
+            store_token('refresh_token', response.refreshToken);
+            navigation.navigate('home');
+            /*
+            get_token().then( token => {
+                console.log('async stored value:', token);
+            });
+            */    
+        })
+        .catch(error => console.log('Error:', error));
 }
 
 
