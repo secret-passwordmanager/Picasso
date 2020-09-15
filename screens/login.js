@@ -38,7 +38,6 @@ export default function login_screen({navigation}){
             <TouchableOpacity style={styles.login_btn}
                 onPress={() => {
                     login(username, password, navigation, set_err_msg);
-                    //navigation.navigate('home')
                 }}>
                 <Text style={styles.login_text}>LOGIN</Text>
             </TouchableOpacity>

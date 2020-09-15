@@ -19,9 +19,9 @@ export default {
             justifyContent: 'center',
             backgroundColor: background_color
         },
-        container_alt:{
+        form_container:{
             flex: 1,
-            alignItems: 'center',
+            paddingTop: 30,
             backgroundColor: background_color
         },
         header:{
@@ -62,6 +62,21 @@ export default {
         login_text:{
             fontSize: 15,
             color: 'white'
+        },
+        input: {
+            backgroundColor: alt_color,
+            width: '80%',
+            borderRadius: 25,
+            height: 50,
+            marginBottom: 20,
+            padding: 10
+        },
+        centered:{
+            alignItems: 'center',
+        },
+        close_form: {
+            backgroundColor: background_color,
+            padding: 10 
         }
     })
 };
