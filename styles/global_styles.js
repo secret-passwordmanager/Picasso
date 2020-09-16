@@ -31,6 +31,7 @@ export default {
             marginBottom:40
         },
         header2:{
+            textAlign: 'center',
             fontWeight:'bold',
             fontSize: 30,
             color: main_color,

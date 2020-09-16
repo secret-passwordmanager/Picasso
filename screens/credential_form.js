@@ -5,7 +5,7 @@ import { Formik } from 'formik'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const styles = global_styles.css_styles;
-export default function CredentialForm(){
+export default function MasterCredentialForm(){
     return (
         <View>
             <Formik

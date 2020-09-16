@@ -5,6 +5,7 @@ import {createStacknavigator} from '@react-navigation/stack'
 import global_styles from '../styles/global_styles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import CredentialForm from './credential_form'
+import MasterCredentialForm from './master_credential_form'
 import AsyncStorage from '@react-native-community/async-storage';
 
 const styles = global_styles.css_styles;
@@ -39,7 +40,7 @@ export default function credentials_screen({navigation}){
                     />
                 </View>
                 <View style={styles.form_container}>
-                    <Text>Enter your master credential</Text>
+                    <MasterCredentialForm/>
                 </View>
             </Modal>
             <MaterialCommunityIcons
@@ -81,6 +82,10 @@ function jwt_trusted_expired(timestamp){
     return false
 }
 
+/*
+ * Opens the Add New Credentials modal. The user will be asked to enter
+ * his or her master credential if the jwtTrusted token has an expired
+ */
 function open_cred_modal(set_cred_modal_open, set_master_cred_modal_open){
     get_value('jwt_trusted_timestamp').then( timestamp => {
         //check if jwtTrusted token is still valid
