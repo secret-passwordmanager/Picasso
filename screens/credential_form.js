@@ -9,7 +9,7 @@ export default function CredentialForm(){
     return (
         <View>
             <Formik
-                initialValues={{name:'', type:'', domain:'', value:''}}
+                initialValues={{Hint:null, Type:null, Domain:null, Value:null, MasterCred:null}}
                 onSubmit={(values) => {
                     console.log(values);
                 }}
@@ -21,26 +21,32 @@ export default function CredentialForm(){
                         </View>
                         <TextInput
                             placeholder='Name'
-                            onChangeText={props.handleChange('name')}
-                            value={props.values.name}
+                            onChangeText={props.handleChange('Hint')}
+                            value={props.values.Hint}
                             style={styles.input}
                         />
                         <TextInput
                             placeholder='Type'
-                            onChangeText={props.handleChange('type')}
-                            value={props.values.type}
+                            onChangeText={props.handleChange('Type')}
+                            value={props.values.Type}
                             style={styles.input}
                         />
                         <TextInput
                             placeholder='Domain'
-                            onChangeText={props.handleChange('domain')}
-                            value={props.values.domain}
+                            onChangeText={props.handleChange('Domain')}
+                            value={props.values.Domain}
                             style={styles.input}
                         />
                         <TextInput
                             placeholder='Value'
-                            onChangeText={props.handleChange('value')}
-                            value={props.values.value}
+                            onChangeText={props.handleChange('Value')}
+                            value={props.values.Value}
+                            style={styles.input}
+                        />
+                        <TextInput
+                            placeholder='Master Credential'
+                            onChangeText={props.handleChange('MasterCred')}
+                            value={props.values.MasterCred}
                             style={styles.input}
                         />
                         <TouchableOpacity style={styles.login_btn}

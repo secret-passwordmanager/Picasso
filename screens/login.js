@@ -52,15 +52,15 @@ export default function login_screen({navigation}){
     );
 };
 
-const get_token = async() =>{
+const get_value = async(key) =>{
     try {
-        return await AsyncStorage.getItem('refresh_token');
+        return await AsyncStorage.getItem(key);
     } catch (e) {
         console.log(e);
     }
 }
 
-const store_token = async(key, value) =>{
+const store_value = async(key, value) =>{
     try {
         return value = await AsyncStorage.setItem(key, value)
     } catch (e) {
@@ -92,13 +92,14 @@ function login(username, password, navigation, set_err_msg){
         //.then(response => response.json())
         .then(response =>{
             console.log(response);
-            store_token('refresh_token', response.refreshToken);
+            store_value('refresh_token', response.refreshToken);
+            store_value('refresh_token_timestamp', Date.now().toString());
             navigation.navigate('home');
             /*
-            get_token().then( token => {
+            get_value('refresh_token_timestamp').then( token => {
                 console.log('async stored value:', token);
             });
-            */    
+            */
         })
         .catch(error => console.log('Error:', error));
 }
