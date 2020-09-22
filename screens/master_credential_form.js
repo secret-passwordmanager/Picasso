@@ -86,6 +86,7 @@ function get_jwt_trusted_token(master_credential){
             })
             .then(response =>{
                 console.log(response);
+                //save value and timestamp of jwt token
                 store_value('jwt_trusted', response.jwt);
                 store_value('jwt_trusted_timestamp', Date.now().toString());
             })

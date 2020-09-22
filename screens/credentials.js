@@ -75,7 +75,7 @@ const store_value = async(key, value) =>{
  * Check if jwtTrusted token is expired
  */
 function jwt_trusted_expired(timestamp){
-    var token_lifetime = 300; //numerical value in seconds
+    var token_lifetime = 10; //numerical value in seconds
     var seconds_elapsed =  Math.ceil((Date.now() - timestamp) / 1000)
     if(seconds_elapsed > token_lifetime)
         return true

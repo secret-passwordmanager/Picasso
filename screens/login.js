@@ -79,9 +79,11 @@ function login(username, password, navigation, set_err_msg){
         redirect: 'follow'
     };
 
+    //log user in
     fetch("http://73.66.169.37:8080/auth/login", request_params)
         .then(response =>{
             if(response.ok){
+                //clear error message
                 set_err_msg('');
                 return response.json();
             }else{
@@ -89,17 +91,11 @@ function login(username, password, navigation, set_err_msg){
                 throw 'username or password is incorrect';
             }
         })
-        //.then(response => response.json())
         .then(response =>{
-            console.log(response);
+            //store refresh token and time stamp asynchronously  
             store_value('refresh_token', response.refreshToken);
             store_value('refresh_token_timestamp', Date.now().toString());
             navigation.navigate('home');
-            /*
-            get_value('refresh_token_timestamp').then( token => {
-                console.log('async stored value:', token);
-            });
-            */
         })
         .catch(error => console.log('Error:', error));
 }
