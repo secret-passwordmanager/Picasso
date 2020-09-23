@@ -40,7 +40,7 @@ export default function credentials_screen({navigation}){
                     />
                 </View>
                 <View style={styles.form_container}>
-                    <MasterCredentialForm/>
+                    <MasterCredentialForm set_master_cred_modal_open={set_master_cred_modal_open}/>
                 </View>
             </Modal>
             <MaterialCommunityIcons
@@ -73,6 +73,12 @@ const store_value = async(key, value) =>{
 
 /*
  * Check if jwtTrusted token is expired
+ *
+ * @timestamp: The timestamp of the jwtTrusted token (number of
+ * miliseconds after 1970 when the token was created)
+ * 
+ * Return: true if the jwtTrusted token is expired, false
+ * if it isn't expired
  */
 function jwt_trusted_expired(timestamp){
     var token_lifetime = 10; //numerical value in seconds
@@ -83,8 +89,16 @@ function jwt_trusted_expired(timestamp){
 }
 
 /*
- * Opens the Add New Credentials modal. The user will be asked to enter
- * his or her master credential if the jwtTrusted token has an expired
+ * Opens the Add New Credentials modal. The user will first be asked to 
+ * enter his or her master credential if the jwtTrusted token is expired
+ * 
+ * @set_cred_modal_open: function which is used to change the state that
+ * determines whether or not the new credential modal is open
+ * @set_master_cred_modal_open: function which is used to change the 
+ * state that determines whether or not the master credential modal is 
+ * open
+ * 
+ * Return: Nothing is returned
  */
 function open_cred_modal(set_cred_modal_open, set_master_cred_modal_open){
     get_value('jwt_trusted_timestamp').then( timestamp => {

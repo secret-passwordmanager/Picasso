@@ -2,17 +2,17 @@ import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal } from 'react-native'
 import  global_styles  from '../styles/global_styles'
 import { Formik } from 'formik'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import AsyncStorage from '@react-native-community/async-storage';
 
 const styles = global_styles.css_styles;
-export default function CredentialForm(){
+export default function CredentialForm({set_master_cred_modal_open}){
     return (
         <View>
             <Formik
                 initialValues={{master_credential:null}}
                 onSubmit={(values) => {
-                    get_jwt_trusted_token(values.master_credential)
+                    if(get_jwt_trusted_token(values.master_credential))
+                        set_master_cred_modal_open(false);
                 }}
             >
                 {(props) => (
@@ -56,11 +56,18 @@ const store_value = async(key, value) =>{
         console.log(e);
     }
 }
-
+/*
+ * Sends a POST request for a jwtTrusted token and stores the
+ * token with async storage
+ * 
+ * @master_credential: the master credential entered by the user
+ * 
+ * Return: True if the jwtTrusted token was received and saved 
+ * successfully. False otherwise 
+ */
 function get_jwt_trusted_token(master_credential){
-    //get refresh token
+    //get refresh token from asynchronous storage
     get_value('refresh_token').then( token => {
-        var refresh_token = token
         //initialize request params
         var request_params = {
             method: 'POST',
@@ -69,13 +76,13 @@ function get_jwt_trusted_token(master_credential){
                 'Content-Type': "application/json;charset=utf-8"
             },
             body: JSON.stringify({
-                refreshToken: refresh_token,
+                refreshToken: token,
                 masterCred: master_credential
             }),
             redirect: 'follow'
         };
-        console.log('refresh_token',refresh_token);
-        //get jwtTrusted token
+        console.log('refresh_token',token);
+        //fetch request to get jwtTrusted token
         fetch("http://73.66.169.37:8080/auth/refresh", request_params)
             .then(response =>{
                 if(response.ok){
@@ -89,8 +96,10 @@ function get_jwt_trusted_token(master_credential){
                 //save value and timestamp of jwt token
                 store_value('jwt_trusted', response.jwt);
                 store_value('jwt_trusted_timestamp', Date.now().toString());
+                return true;
             })
             .catch(error => console.log('Error:', error));
 
     });
+    return false;
 }
