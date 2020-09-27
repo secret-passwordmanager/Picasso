@@ -1,13 +1,10 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal } from 'react-native'
-import {NavigationContainer} from '@react-navigation/native'
-import {createStacknavigator} from '@react-navigation/stack'
 import global_styles from '../styles/global_styles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import CredentialForm from './credential_form'
 import MasterCredentialForm from './master_credential_form'
-import AsyncStorage from '@react-native-community/async-storage';
-
+import {get_value} from '../utils/async_storage.js'
 const styles = global_styles.css_styles;
 
 
@@ -54,22 +51,6 @@ export default function credentials_screen({navigation}){
         </View>  
     );
 };
-
-const get_value = async(key) =>{
-    try {
-        return await AsyncStorage.getItem(key);
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-const store_value = async(key, value) =>{
-    try {
-        return value = await AsyncStorage.setItem(key, value)
-    } catch (e) {
-        console.log(e);
-    }
-}
 
 /*
  * Check if jwtTrusted token is expired

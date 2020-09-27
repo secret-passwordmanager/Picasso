@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import global_styles from '../styles/global_styles'
 import AsyncStorage from '@react-native-community/async-storage';
+import {login} from '../utils/user_login.js'
 
 const styles = global_styles.css_styles;
 export default function login_screen({navigation}){
@@ -52,52 +53,7 @@ export default function login_screen({navigation}){
     );
 };
 
-const get_value = async(key) =>{
-    try {
-        return await AsyncStorage.getItem(key);
-    } catch (e) {
-        console.log(e);
-    }
-}
 
-const store_value = async(key, value) =>{
-    try {
-        return value = await AsyncStorage.setItem(key, value)
-    } catch (e) {
-        console.log(e);
-    }
-}
 
-function login(username, password, navigation, set_err_msg){
-    var request_params = {
-    method: 'POST',
-        headers: {
-            //'Accept': "application/json, text/plain, */*",
-            'Content-Type': "application/json;charset=utf-8"
-        },
-        body: JSON.stringify({"username": username,"password":password}),
-        redirect: 'follow'
-    };
-
-    //log user in
-    fetch("http://73.66.169.37:8080/auth/login", request_params)
-        .then(response =>{
-            if(response.ok){
-                //clear error message
-                set_err_msg('');
-                return response.json();
-            }else{
-                set_err_msg('username or password is incorrect');
-                throw 'username or password is incorrect';
-            }
-        })
-        .then(response =>{
-            //store refresh token and time stamp asynchronously  
-            store_value('refresh_token', response.refreshToken);
-            store_value('refresh_token_timestamp', Date.now().toString());
-            navigation.navigate('home');
-        })
-        .catch(error => console.log('Error:', error));
-}
 
 
