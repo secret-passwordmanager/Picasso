@@ -9,7 +9,8 @@ import AsyncStorage from '@react-native-community/async-storage';
  */
 export const get_value = async(key) =>{
     try {
-        return await AsyncStorage.getItem(key);
+        var value = await AsyncStorage.getItem(key);
+        return value
     } catch (e) {
         console.log(e);
     }
@@ -25,7 +26,7 @@ export const get_value = async(key) =>{
  */
 export const store_value = async(key, value) =>{
     try {
-        return value = await AsyncStorage.setItem(key, value)
+        await AsyncStorage.setItem(key, value)
     } catch (e) {
         console.log(e);
     }
