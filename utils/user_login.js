@@ -5,8 +5,10 @@ import {store_value} from './async_storage.js'
  *
  * @username: a string representing the user's username
  * @password: a string representing the user's password
+ * @navigation: a navigation object which is used to change screens
+ * @set_err_msg: a state which is used to store error messages
  * 
- * Return:
+ * Return: None
  */
 export const login = (username, password, navigation, set_err_msg) => {
     var request_params = {
@@ -35,6 +37,7 @@ export const login = (username, password, navigation, set_err_msg) => {
             //store refresh token and time stamp asynchronously  
             store_value('refresh_token', response.refreshToken);
             store_value('refresh_token_timestamp', Date.now().toString());
+            //navigate to the home page
             navigation.navigate('home');
         })
         .catch(error => console.log('Error:', error));
