@@ -42,3 +42,11 @@ export const login = (username, password, navigation, set_err_msg) => {
         })
         .catch(error => console.log('Error:', error));
 }
+/*
+ * Logs the user out by clearing stored data associated with the account
+ */
+export const logout = () => {
+    //clear refresh token
+    //clear jwtTrusted token
+    //clear stored credentials
+}

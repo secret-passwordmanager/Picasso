@@ -11,6 +11,9 @@ const styles = global_styles.css_styles;
 export default function credentials_screen({navigation}){
     const [cred_modal_open, set_cred_modal_open] = useState(false);
     const [master_cred_modal_open, set_master_cred_modal_open] = useState(false);
+    const [credentials, set_credentials] = useState([]);
+    // get all credentials asyncronously so they can displayed to the user
+    get_credentials(set_credentials);
     return(
         <View style={styles.container}>
             <Text style={styles.login_text}>Credentials</Text>
@@ -51,6 +54,10 @@ export default function credentials_screen({navigation}){
         </View>  
     );
 };
+
+function get_credentials(set_credentials){
+    return
+}
 
 /*
  * Check if jwtTrusted token is expired
