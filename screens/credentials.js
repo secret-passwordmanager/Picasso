@@ -58,6 +58,45 @@ export default function credentials_screen({navigation}){
 function get_credentials(set_credentials){
     return
 }
+/*
+ * Send POST request to create a new credential and then save the
+ * new credential client side so that the user can see it
+ * 
+ * @credential_info: an object storing the fields associated with
+ * a credential (name, type, domain, value)
+ * @set_credentials: setter function used to update the array which
+ * contains the user's stored credentials
+ * 
+ * Return: Nothing is returned 
+ */
+function create_credential(new_credential, set_credentials){
+    get_value('jwt_trusted').then(jwt_trusted => {
+        var request_header = new Headers();
+        request_header.append("Authorization", "Bearer " +  jwt_trusted);
+        request_header.append("Content-Type", "application/json");
+
+        var request_params = {
+            method: 'POST',
+            headers: request_header,
+            body: JSON.stringify(new_credential),
+            redirect: 'follow'
+        };
+
+        fetch("http://73.66.169.37:8080/credential/new", request_params)
+            .then(response => {
+                //credential created successfully
+                if(response.ok){
+                    // add the new credential to the array of current credentials
+                    set_credentials( (current_credentials) => {
+                        return [new_credential, ...current_credentials]
+                    });
+                }else{
+                    throw 'credential could not be created'
+                }
+            })
+            .catch(error => console.log('error', error));
+    });
+}
 
 /*
  * Check if jwtTrusted token is expired
