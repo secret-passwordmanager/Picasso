@@ -55,7 +55,20 @@ export default function credentials_screen({navigation}){
     );
 };
 
+/*
+ * Updates the displayed credentials with the ones stored 
+ * asynchronously
+ * 
+ * @set_credentials: setter method which changes the array of user
+ * credentials
+ * 
+ * Return: Nothing is returned
+ */
 function get_credentials(set_credentials){
+    get_value('credentials').then(credentials =>{
+        //credentials are stored in async storage as a JSON string
+        set_credentials(JSON.parse(credentials))
+    });
     return
 }
 /*
