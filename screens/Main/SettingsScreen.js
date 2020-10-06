@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native'
 import {createStacknavigator} from '@react-navigation/stack'
-import global_styles from '../styles/global_styles'
+import global_styles from '../../styles/global_styles'
 
 const styles = global_styles.css_styles;
 

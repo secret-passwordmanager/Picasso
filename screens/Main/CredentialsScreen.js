@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal } from 'react-native'
-import global_styles from '../styles/global_styles'
+import global_styles from '../../styles/global_styles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import CredentialForm from './credential_form'
-import MasterCredentialForm from './master_credential_form'
-import {get_value} from '../utils/async_storage.js'
+import CredentialForm from './CredentialForm'
+import MasterCredentialForm from '../Auth/MasterCredScreen'
+import {get_value} from '../../utils/async_storage.js'
 const styles = global_styles.css_styles;
 
 
-export default function credentials_screen({navigation}){
+export default function CredentialsScreen({navigation}){
     const [cred_modal_open, set_cred_modal_open] = useState(false);
     const [master_cred_modal_open, set_master_cred_modal_open] = useState(false);
     return(

@@ -1,17 +1,18 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { StatusBar } from 'expo-status-bar';
-import global_styles from '../styles/global_styles'
+
+import global_styles from '../../styles/global_styles'
 import AsyncStorage from '@react-native-community/async-storage';
-import {login} from '../utils/user_login.js'
+import {requests} from '../../utils/requests';
+import {AuthContext} from '../../App';
 
 const styles = global_styles.css_styles;
-export default function login_screen({navigation}){
+export default function LoginScreen(){
     const [username, set_username] = useState('');
     const [password, set_password] = useState('');
     const [error_message, set_err_msg] = useState('');
+
+    const {state, dispatch} = React.useContext(AuthContext);
     return (
         <View style={styles.container}>
             {/*<StatusBar style="auto" />*/}
@@ -32,21 +33,24 @@ export default function login_screen({navigation}){
                 onChangeText={(val) => set_password(val)}/>
             </View>
 
-            {/*<TouchableOpacity >
-                <Text style={styles.login_text}>Forgot Password?</Text>
-            </TouchableOpacity>*/}
             <Text style={{color:'red'}}>{error_message}</Text>
             <TouchableOpacity style={styles.login_btn}
                 onPress={() => {
-                    login(username, password, navigation, set_err_msg);
+                    requests.login(username, password)
+                    .then((refreshToken) => {
+                        AsyncStorage.setItem('refreshToken', refreshToken);
+                        dispatch({type: 'SET_REFRESH_TOKEN', token: refreshToken});
+                    })
+                    .catch((err) => {
+                        console.log('Error: Couldn\'t log in');
+                        //TODO: Show a popup or something
+                    });
+                    
                 }}>
                 <Text style={styles.login_text}>LOGIN</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity
-                onPress={() =>
-                    navigation.navigate('signup')
-                }>
+            <TouchableOpacity>
                 <Text style={styles.login_text}>Create an account</Text>
             </TouchableOpacity>
         </View>

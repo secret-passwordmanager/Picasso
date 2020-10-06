@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import global_styles from '../styles/global_styles'
-import requests from "./requests";
-import credentials from "./credentials"
-import settings from "./settings"
+import global_styles from '../../styles/global_styles'
+import RequestsScreen from "./RequestsScreen";
+import CredentialsScreen from "./CredentialsScreen";
+import SettingsScreen from "./SettingsScreen";
 
 const styles = global_styles.css_styles;
 const Tab = createMaterialBottomTabNavigator();
@@ -22,7 +22,7 @@ export default function tabs() {
       >
         <Tab.Screen
           name="Password Requests"
-          component={requests}
+          component={RequestsScreen}
           options={{
             tabBarLabel: '',
             tabBarColor: styles.main_color,
@@ -33,7 +33,7 @@ export default function tabs() {
         />
         <Tab.Screen
           name="Credentials"
-          component={credentials}
+          component={CredentialsScreen}
           options={{
             tabBarLabel: '',
             tabBarColor: styles.main_color,
@@ -44,7 +44,7 @@ export default function tabs() {
         />
         <Tab.Screen
           name="Settings"
-          component={settings}
+          component={SettingsScreen}
           options={{
             tabBarLabel: '',
             tabBarColor: styles.main_color,

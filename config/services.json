@@ -4,7 +4,7 @@
         "trustedUrl" : "/Trusted"
     },
     "auth": {
-        "authUrl": "",
-        "refreshUrl": ""
+        "loginUrl": "/auth/login",
+        "refreshUrl": "/auth/refresh"
     }
 }
