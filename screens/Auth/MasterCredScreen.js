@@ -1,12 +1,11 @@
 import React from 'react'
-import {Text, View, TextInput, TouchableOpacity, Modal } from 'react-native'
+import {Text, View, TextInput, TouchableOpacity } from 'react-native'
 import  global_styles  from '../../styles/global_styles'
 import { Formik } from 'formik'
-import {get_value, store_value} from '../../utils/async_storage.js'
 
-import {AuthContext} from '../../App';
+import {AuthContext} from '../../utils/authContext';
 import {requests} from '../../utils/requests';
-import AsyncStorage from '@react-native-community/async-storage'
+
 
 const styles = global_styles.css_styles;
 
@@ -22,7 +21,6 @@ export default function MasterCredScreen(){
                 onSubmit={(values) => {
                     requests.refreshJwt(values.master_credential)
                     .then((jwtTrusted) => {
-                        AsyncStorage.setItem('jwt', jwtTrusted);
                         dispatch({type: 'SET_JWT', jwt: jwtTrusted});
                     })
                     .catch((err) => {

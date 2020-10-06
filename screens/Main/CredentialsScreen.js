@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal } from 'reac
 import global_styles from '../../styles/global_styles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import CredentialForm from './CredentialForm'
-import MasterCredentialForm from '../Auth/MasterCredScreen'
+
 import {get_value} from '../../utils/async_storage.js'
 const styles = global_styles.css_styles;
 
@@ -14,40 +14,6 @@ export default function CredentialsScreen({navigation}){
     return(
         <View style={styles.container}>
             <Text style={styles.login_text}>Credentials</Text>
-            <Modal visible={cred_modal_open} animationType='slide'>
-                <View style={styles.close_form}>
-                    <MaterialCommunityIcons
-                        name='close-circle'
-                        color={global_styles.alt_color}
-                        size={30}
-                        onPress={() => set_cred_modal_open(false)}
-                    />
-                </View>
-                <View style={styles.form_container}>
-                    <CredentialForm/>
-                </View>
-            </Modal>
-            <Modal visible={master_cred_modal_open} animationType='slide'>
-                <View style={styles.close_form}>
-                    <MaterialCommunityIcons
-                        name='close-circle'
-                        color={global_styles.alt_color}
-                        size={30}
-                        onPress={() => set_master_cred_modal_open(false)}
-                    />
-                </View>
-                <View style={styles.form_container}>
-                    <MasterCredentialForm set_master_cred_modal_open={set_master_cred_modal_open}/>
-                </View>
-            </Modal>
-            <MaterialCommunityIcons
-                name='plus-circle'
-                color={global_styles.alt_color}
-                size={30}
-                onPress={() => {
-                    open_cred_modal(set_cred_modal_open, set_master_cred_modal_open)
-                }}
-            />
         </View>  
     );
 };

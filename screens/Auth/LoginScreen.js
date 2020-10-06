@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import global_styles from '../../styles/global_styles'
 import AsyncStorage from '@react-native-community/async-storage';
 import {requests} from '../../utils/requests';
-import {AuthContext} from '../../App';
+import {AuthContext} from '../../utils/authContext';
 
 const styles = global_styles.css_styles;
 export default function LoginScreen(){
