@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import global_styles from '../../styles/global_styles'

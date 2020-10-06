@@ -47,7 +47,6 @@ export default function MasterCredScreen(){
                             <Text style={styles.login_text}>Enter</Text>
                         </TouchableOpacity>
                     </View>
-                    
                 )}
             </Formik>
         </View>

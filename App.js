@@ -9,87 +9,76 @@ import MasterCredScreen from './screens/Auth/MasterCredScreen';
 import LoginScreen from './screens/Auth/LoginScreen';
 
 const Stack = createStackNavigator();
-/**
- * AuthContext contains all actions
- * related to authorizing a user. 
- * They are:
- * [
- *  signIn,
- *  signOut,
- *  signUp
- * ]
- */
-
 
 export default function App() {
 
-  const [state, dispatch] = React.useReducer(
-    (prevState, action) => {
-      switch (action.type) {
-        case 'RESTORE_REFRESH_TOKEN': 
-          return {
-            ...prevState,
-            userToken: action.token,
-          };
-          case 'SET_REFRESH_TOKEN':
-            return {
-              ...prevState,
-              userToken: action.token,
-            };
-          case 'DELETE_REFRESH_TOKEN':
-            return {
-              ...prevState,
-              userToken: null,
-            };
-          case 'SET_JWT':
-            return {
-              ...prevState,
-              jwt: action.jwt
-            };
-          case 'DELETE_JWT':
-            return {
-              ...prevState,
-              jwt: null
+    const [state, dispatch] = React.useReducer(
+        (prevState, action) => {
+            switch (action.type) {
+                case 'RESTORE_REFRESH_TOKEN': 
+                    return {
+                        ...prevState,
+                        userToken: action.token,
+                    };
+                case 'SET_REFRESH_TOKEN':
+                    return {
+                        ...prevState,
+                        userToken: action.token,
+                    };
+                case 'DELETE_REFRESH_TOKEN':
+                    return {
+                        ...prevState,
+                        userToken: null,
+                    };
+                case 'SET_JWT':
+                    return {
+                        ...prevState,
+                        jwt: action.jwt
+                    };
+                case 'DELETE_JWT':
+                    return {
+                        ...prevState,
+                        jwt: null
+                    }
             }
-      }
-    },
-    {
-      userToken: null,
-      jwt: null,
+        },
+        {
+            userToken: null,
+            jwt: null,
+        }
+    );
+    React.useEffect(() => {
+
+        const autoLogInAsync = async () => { 
+            AsyncStorage.getItem('refreshToken')
+            .then((refreshToken) => {
+                dispatch({ type: 'RESTORE_REFRESH_TOKEN', token: refreshToken });
+            })
+            .catch((err) => {
+                console.log('Error: ' + err.message);
+            });
+        }
+
+        autoLogInAsync();
+    }, []);
+
+    let screen = null;
+    if (state.userToken == null) {
+        screen = <Stack.Screen name="Login" component={LoginScreen}/>;
+    } else if (state.jwt == null) {
+        screen = <Stack.Screen name="MasterCred" component={MasterCredScreen}/>;
+    } else {
+        screen = <Stack.Screen name="MainNav" component={MainNav} />
     }
-  );
-
-  React.useEffect(() => {
-
-    const autoLogInAsync = async () => { 
-      AsyncStorage.getItem('refreshToken')
-      .then((refreshToken) => {
-        dispatch({ type: 'RESTORE_REFRESH_TOKEN', token: refreshToken });
-      })
-      .catch((err) => {
-        console.log('Error: ' + err.message);
-      });
-    }
-    autoLogInAsync();
-  }, []);
-
-  let screen = null;
-  if (state.userToken == null) {
-    screen = <Stack.Screen name="Login" component={LoginScreen}/>;
-  } else if (state.jwt == null) {
-    screen = <Stack.Screen name="MasterCred" component={MasterCredScreen}/>;
-  } else {
-    screen = <Stack.Screen name="MainNav" component={MainNav} />
-  }
-  return (
-    <AuthContext.Provider value={{state, dispatch}}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          {screen}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider value={{state, dispatch}}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    {screen}
+                </Stack.Navigator>
+            </NavigationContainer>
+        </AuthContext.Provider>
+    );
 }
 
 

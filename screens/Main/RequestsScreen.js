@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
 import {Button, Text, View} from 'react-native';
-
 import {AuthContext} from '../../utils/authContext';
-
 
 export default function HomeScreen() {
   const {state, dispatch} = React.useContext(AuthContext);
-
   return (
     <View>
       <Text>Signed In!</Text>

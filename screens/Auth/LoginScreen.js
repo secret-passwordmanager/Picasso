@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 import global_styles from '../../styles/global_styles'
 import AsyncStorage from '@react-native-community/async-storage';
@@ -10,7 +10,6 @@ const styles = global_styles.css_styles;
 export default function LoginScreen(){
     const [username, set_username] = useState('');
     const [password, set_password] = useState('');
-    const [error_message, set_err_msg] = useState('');
 
     const {state, dispatch} = React.useContext(AuthContext);
     return (
@@ -33,7 +32,6 @@ export default function LoginScreen(){
                 onChangeText={(val) => set_password(val)}/>
             </View>
 
-            <Text style={{color:'red'}}>{error_message}</Text>
             <TouchableOpacity style={styles.login_btn}
                 onPress={() => {
                     requests.login(username, password)
