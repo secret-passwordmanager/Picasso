@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
-
 import global_styles from '../../styles/global_styles'
 import AsyncStorage from '@react-native-community/async-storage';
 import {requests} from '../../utils/requests';
 import {AuthContext} from '../../utils/authContext';
+import DropdownAlert from 'react-native-dropdownalert';
 
 const styles = global_styles.css_styles;
 export default function LoginScreen(){
-    const [username, set_username] = useState('');
-    const [password, set_password] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [dropDown, setDropDown] = useState('');
 
     const {state, dispatch} = React.useContext(AuthContext);
     return (
@@ -21,7 +22,7 @@ export default function LoginScreen(){
                 style={styles.input_text} 
                 placeholder='Username' 
                 placeholderTextColor={global_styles.background_color}
-                onChangeText={(val) => set_username(val)}/>
+                onChangeText={(val) => setUsername(val)}/>
             </View>
             <View style={styles.login_field}>
                 <TextInput 
@@ -29,7 +30,7 @@ export default function LoginScreen(){
                 secureTextEntry={true} 
                 placeholder='Password' 
                 placeholderTextColor={global_styles.background_color}
-                onChangeText={(val) => set_password(val)}/>
+                onChangeText={(val) => setPassword(val)}/>
             </View>
 
             <TouchableOpacity style={styles.login_btn}
@@ -40,8 +41,8 @@ export default function LoginScreen(){
                         dispatch({type: 'SET_REFRESH_TOKEN', token: refreshToken});
                     })
                     .catch((err) => {
-                        console.log('Error: Couldn\'t log in');
-                        //TODO: Show a popup or something
+                        dropDown.alertWithType('error', 'Error', err.message)
+                            
                     });
                     
                 }}>
@@ -51,6 +52,7 @@ export default function LoginScreen(){
             <TouchableOpacity>
                 <Text style={styles.login_text}>Create an account</Text>
             </TouchableOpacity>
+            <DropdownAlert ref={ref => setDropDown(ref)} />
         </View>
     );
 };

@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Text, View, TextInput, TouchableOpacity } from 'react-native'
 import  global_styles  from '../../styles/global_styles'
 import { Formik } from 'formik'
-
+import DropdownAlert from 'react-native-dropdownalert';
 import {AuthContext} from '../../utils/authContext';
 import {requests} from '../../utils/requests';
 
@@ -11,8 +11,9 @@ const styles = global_styles.css_styles;
 
 
 export default function MasterCredScreen(){
-
+    
     const { state, dispatch } = React.useContext(AuthContext);
+    const [dropDown, setDropDown] = useState('');
 
     return (
         <View>
@@ -24,7 +25,8 @@ export default function MasterCredScreen(){
                         dispatch({type: 'SET_JWT', jwt: jwtTrusted});
                     })
                     .catch((err) => {
-                        console.log('Error: ' + err.message);
+                        dropDown.alertWithType('error', 'Error', err.message)
+                            
                     });
                 }}
             >
@@ -49,6 +51,7 @@ export default function MasterCredScreen(){
                     </View>
                 )}
             </Formik>
+            <DropdownAlert ref={ref => setDropDown(ref)} />
         </View>
     )
 }

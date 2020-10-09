@@ -24,7 +24,7 @@ export const requests = {
             if (typeof respJson == 'object') {
                 return respJson.refreshToken;
             } else {
-                throw new Error('Couldn\'t log in');
+                throw new Error('Invalid username or password');
             }
         });
     },
@@ -54,7 +54,7 @@ export const requests = {
                 if (resp.ok) {
                     return resp.json();
                 } else {
-                    throw new Error('More problems')
+                    throw new Error('Invalid Master Credential')
                 }
             })
             .then((respJson) => {
@@ -62,11 +62,36 @@ export const requests = {
                    
                     return respJson.jwt;
                 } else {
-                    throw new Error('Couldn\'t refresh jwt');
+                    throw new Error('Invalid Master Credential');
                 }
             });
         });
     },
+
+    getCredentials: async(jwt) => {
+        return fetch(Services.baseUrl + Services.cred.getUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': 'Bearer ' + jwt
+            },
+            redirect: 'follow'
+        })
+        .then((resp) => {
+            if (resp.ok) {
+                return resp.json();
+            } else {
+                throw new Error('Could not get credentials')
+            }
+        })
+        .then((respJson) => {
+            if (typeof respJson == 'object') {
+                return respJson;
+            } else {
+                throw new Error('Could not get credentials');
+            }
+        });
+    }
 
 
 }
