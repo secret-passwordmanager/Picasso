@@ -49,7 +49,7 @@ export default function App() {
     );
     React.useEffect(() => {
 
-        const autoLogInAsync = async () => { 
+        /* const autoLogInAsync = async () => { 
             AsyncStorage.getItem('refreshToken')
             .then((refreshToken) => {
                 dispatch({ type: 'RESTORE_REFRESH_TOKEN', token: refreshToken });
@@ -57,9 +57,9 @@ export default function App() {
             .catch((err) => {
                 console.log('Error: ' + err.message);
             });
-        }
+        } */
 
-        autoLogInAsync();
+       // autoLogInAsync();
     }, []);
 
     let screen = null;
@@ -73,7 +73,7 @@ export default function App() {
     return (
         <AuthContext.Provider value={{state, dispatch}}>
             <NavigationContainer>
-                <Stack.Navigator>
+                <Stack.Navigator headerMode='none'>
                     {screen}
                 </Stack.Navigator>
             </NavigationContainer>

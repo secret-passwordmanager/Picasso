@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
-import global_styles from '../styles/global_styles'
 
-const styles = global_styles.css_styles;
 export default function signup_screen({navigation}){
     const [first_name, set_first_name] = useState('');
     const [last_name, set_last_name] = useState('');
@@ -17,7 +15,7 @@ export default function signup_screen({navigation}){
                 <TextInput 
                 style={styles.input_text}
                 placeholder='First Name' 
-                placeholderTextColor={global_styles.background_color}
+                /* placeholderTextColor={global_styles.background_color} */
                 onChangeText={(val) => set_first_name(val)}/>
             </View>
 
@@ -25,7 +23,7 @@ export default function signup_screen({navigation}){
                 <TextInput 
                 style={styles.input_text} 
                 placeholder='Last Name' 
-                placeholderTextColor={global_styles.background_color}
+                /* placeholderTextColor={global_styles.background_color} */
                 onChangeText={(val) => set_last_name(val)}/>
             </View>
 
@@ -33,7 +31,7 @@ export default function signup_screen({navigation}){
                 <TextInput 
                 style={styles.input_text} 
                 placeholder='Username' 
-                placeholderTextColor={global_styles.background_color}
+                /* placeholderTextColor={global_styles.background_color} */
                 onChangeText={(val) => set_username(val)}/>
             </View>
 
@@ -42,7 +40,7 @@ export default function signup_screen({navigation}){
                 style={styles.input_text}
                 secureTextEntry={true} 
                 placeholder='Password' 
-                placeholderTextColor={global_styles.background_color}
+                /* placeholderTextColor={global_styles.background_color} */
                 onChangeText={(val) => set_password(val)}/>
             </View>
 
@@ -50,7 +48,7 @@ export default function signup_screen({navigation}){
                 <TextInput 
                 style={styles.input_text}
                 placeholder='Master Credential' 
-                placeholderTextColor={global_styles.background_color}
+                /* placeholderTextColor={global_styles.background_color} */
                 onChangeText={(val) => set_master_cred(val)}/>
             </View>
 

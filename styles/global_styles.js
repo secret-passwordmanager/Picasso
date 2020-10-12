@@ -4,9 +4,9 @@ import {StyleSheet} from 'react-native';
  * as well as all of the CSS styles in the form of a native
  * react stylesheet object
  */
-const main_color= '#2663ad'; //used to highlight important features
-const background_color= '#1e1e1e'; 
-const alt_color= '#5e5e5e';
+/* const main_color= '#102027'; //used to highlight important features
+const background_color= '#102027'; 
+const alt_color= '#7b1fa2';
 
 export default {
     main_color: main_color,
@@ -81,3 +81,4 @@ export default {
         }
     })
 };
+ */

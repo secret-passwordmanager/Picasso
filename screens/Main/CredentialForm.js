@@ -1,10 +1,8 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal } from 'react-native'
-import  global_styles  from '../../styles/global_styles'
 import { Formik } from 'formik'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const styles = global_styles.css_styles;
 export default function CredentialForm(){
     return (
         <View>

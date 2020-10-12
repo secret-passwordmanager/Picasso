@@ -1,14 +1,11 @@
 import React, {useState} from 'react'
 import {Text, View, TextInput, TouchableOpacity } from 'react-native'
-import  global_styles  from '../../styles/global_styles'
 import { Formik } from 'formik'
 import DropdownAlert from 'react-native-dropdownalert';
 import {AuthContext} from '../../utils/authContext';
 import {requests} from '../../utils/requests';
 
-
-const styles = global_styles.css_styles;
-
+import style from '../../styles/screens/masterCredSceen';
 
 export default function MasterCredScreen(){
     
@@ -16,8 +13,8 @@ export default function MasterCredScreen(){
     const [dropDown, setDropDown] = useState('');
 
     return (
-        <View>
-            <Formik
+        <View style={style.container}>
+            <Formik style={style.test}
                 initialValues={{master_credential:null}}
                 onSubmit={(values) => {
                     requests.refreshJwt(values.master_credential)
@@ -31,22 +28,21 @@ export default function MasterCredScreen(){
                 }}
             >
                 {(props) => (
-                    <View style={styles.centered}>
+                    <View>
                         <View>
-                            <Text style={styles.header2}>Please Enter Your Master Credential</Text>
+                            <Text>Please Enter Your Master Credential</Text>
                         </View>
                         <TextInput
                             placeholder=''
                             onChangeText={props.handleChange('master_credential')}
                             value={props.values.master_credential}
                             secureTextEntry={true} 
-                            style={styles.input}
                         />
-                        <TouchableOpacity style={styles.login_btn}
+                        <TouchableOpacity
                             onPress={() => {
                                 props.handleSubmit()
                             }}>
-                            <Text style={styles.login_text}>Enter</Text>
+                            <Text>Enter</Text>
                         </TouchableOpacity>
                     </View>
                 )}
