@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Text, View, TextInput, TouchableOpacity } from 'react-native'
+import {Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import { Formik } from 'formik'
 import DropdownAlert from 'react-native-dropdownalert';
 import {AuthContext} from '../../utils/authContext';
@@ -13,41 +13,48 @@ export default function MasterCredScreen(){
     const [dropDown, setDropDown] = useState('');
 
     return (
-        <View style={style.container}>
-            <Formik style={style.test}
-                initialValues={{master_credential:null}}
-                onSubmit={(values) => {
-                    requests.refreshJwt(values.master_credential)
-                    .then((jwtTrusted) => {
-                        dispatch({type: 'SET_JWT', jwt: jwtTrusted});
-                    })
-                    .catch((err) => {
-                        dropDown.alertWithType('error', 'Error', err.message)
-                            
-                    });
-                }}
-            >
-                {(props) => (
-                    <View>
+        <KeyboardAvoidingView style={style.screen}behavior='padding'>
+            <Text style={style.title}>
+                Please Enter Your Master Credential
+            </Text>
+            <View style={style.form}
+                >
+          
+                <Formik
+                    initialValues={{master_credential:null}}
+                    onSubmit={(values) => {
+                        requests.refreshJwt(values.master_credential)
+                        .then((jwtTrusted) => {
+                            dispatch({type: 'SET_JWT', jwt: jwtTrusted});
+                        })
+                        .catch((err) => {
+                            dropDown.alertWithType('error', 'Error', err.message)
+                                
+                        });
+                    }}
+                >
+                    {(props) => (
                         <View>
-                            <Text>Please Enter Your Master Credential</Text>
+                            
+                    
+                            <TextInput style={style.textInput}
+                                placeholder=''
+                                onChangeText={props.handleChange('master_credential')}
+                                value={props.values.master_credential}
+                                secureTextEntry={true} 
+                            />
+                            <TouchableOpacity style={style.btn}
+                                onPress={() => {
+                                    props.handleSubmit()
+                                }}>
+                                <Text style={style.btnText}>Enter</Text>
+                            </TouchableOpacity>
                         </View>
-                        <TextInput
-                            placeholder=''
-                            onChangeText={props.handleChange('master_credential')}
-                            value={props.values.master_credential}
-                            secureTextEntry={true} 
-                        />
-                        <TouchableOpacity
-                            onPress={() => {
-                                props.handleSubmit()
-                            }}>
-                            <Text>Enter</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
-            </Formik>
+                    )}
+                </Formik>
+            </View>
+            
             <DropdownAlert ref={ref => setDropDown(ref)} />
-        </View>
+        </KeyboardAvoidingView>
     )
 }

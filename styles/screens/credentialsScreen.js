@@ -16,19 +16,5 @@ export default StyleSheet.create({
         textAlign: 'center',
      
     },
-    form: {
- 
-        padding: 40
-    },
-    textInput: {
-        ...global.textInput
-    },
-    btn: {
-        ...global.btn,
-        margin: 20,
-        backgroundColor: colors.accent
-    },
-    btnText: {
-        ...global.btnText
-    }
+    
 });

@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import RequestsScreen from "./RequestsScreen";
 import CredentialsScreen from "./CredentialsScreen";
 import SettingsScreen from "./SettingsScreen";
-
+import {colors} from '../../styles/global';
 const Tab = createMaterialBottomTabNavigator();
 
 export default function tabs() {
@@ -16,7 +16,7 @@ export default function tabs() {
         labeled = 'false'
         activeColor = 'white'
        /*  inactiveColor = {global_styles.background_color} */
-        /* barStyle={{ backgroundColor: global_styles.main_color}} */
+        barStyle={{ backgroundColor: colors.contentBg}}
       >
         <Tab.Screen
           name="Password Requests"
@@ -34,7 +34,7 @@ export default function tabs() {
           component={CredentialsScreen}
           options={{
             tabBarLabel: '',
-            /* tabBarColor: styles.main_color, */
+            tabBarColor: colors.contentBg,
             tabBarIcon: ({color}) => (
               <MaterialCommunityIcons name="lock" color={color} size={26} />
             ),

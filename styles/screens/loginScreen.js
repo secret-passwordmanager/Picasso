@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {global} from '../global';
+import {global, colors} from '../global';
 
 
 export default StyleSheet.create({
@@ -23,14 +23,13 @@ export default StyleSheet.create({
         ...global.text,
     },
     form: {
-        ...global.shadow,
         flex: 2,
         justifyContent: 'space-around'
     },
     inputContainer: {
         flex: 1,
         justifyContent: 'space-around',
-        alignItems: 'center'
+        alignItems: 'stretch'
     },
     input: {
         ...global.textInput,
@@ -42,12 +41,11 @@ export default StyleSheet.create({
         alignItems: 'center'
     },  
     loginBtn: {
-        ...global.shadow,
         ...global.btn,
         width: 160,
+        backgroundColor: colors.accent
     },
     signUpBtn: {
-        ...global.shadow,
         ...global.btn,
         width: 160,
     },  
